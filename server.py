@@ -13,6 +13,10 @@ AWESOMENESS = [
     'oh-so-not-meh', 'brilliant', 'ducky', 'coolio', 'incredible',
     'wonderful', 'smashing', 'lovely']
 
+DISS = [
+  'weak', 'not as handsome as Bradley Pitt', 'not as cool as your mother thinks you are', 'not all jacked up on Mountain Dew'
+]
+
 
 @app.route('/')
 def start_here():
@@ -50,6 +54,11 @@ def say_hello():
           <label for="comp_four">Cool</label><br>
           <input type="submit" value="Submit">
         </form>
+        <h2>You don't want this...</h2>
+        <form action="/diss">
+          Give me that name! <input type="text" name="dude">
+          <input type="submit" value="You're wild for this..">
+        </form>
       </body>
     </html>
     """
@@ -60,8 +69,6 @@ def greet_person():
     """Get user by name."""
 
     player = request.args.get("person")
-
-
     compliment = request.args.get("comp_choice")
 
     return f"""
@@ -75,6 +82,24 @@ def greet_person():
       </body>
     </html>
     """
+
+@app.route('/diss')
+def diss_person():
+
+  dude = request.args.get("dude")
+  diss = choice(DISS)
+
+  return f"""
+  <!doctype html>
+  <html>
+    <head>
+      <title>A Diss</title>
+    </head>
+    <body>
+      Hi, {dude}! I think you're {diss}!
+    </body>
+  </html>
+  """
 
 
 if __name__ == '__main__':
